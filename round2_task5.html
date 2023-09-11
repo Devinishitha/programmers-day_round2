@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tic tac toe game</title>
+    <style>
+        body{
+            background-color: skyblue;
+        }
+        .box {
+            font-size:40px;
+            border: 3px solid yellow;
+            font-size: 40px;
+            height: 90px;
+            width: 90px;
+            text-align: center;
+        }
+        .bbox {
+            display: inline-grid;
+            grid-template-columns: repeat(3, 90px);
+            grid-gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <h1 style="color: purple;">Tic Tac Toe Game</h1>
+    <div class="bbox" id="bbox">
+        <div class="box" onclick="ss(0)"></div>
+        <div class="box" onclick="ss(1)"></div>
+        <div class="box" onclick="ss(2)"></div>
+        <div class="box" onclick="ss(3)"></div>
+        <div class="box" onclick="ss(4)"></div>
+        <div class="box" onclick="ss(5)"></div>
+        <div class="box" onclick="ss(6)"></div>
+        <div class="box" onclick="ss(7)"></div>
+        <div class="box" onclick="ss(8)"></div>
+    </div>
+    <p id="text" class="tt"></p>
+    <script>
+        let start= 'X';
+        let cells = Array.from(document.querySelectorAll('.box'));
+        let bbox = new Array(9).fill('');
+        let gameOver = false;
+        const winningcriterias = [
+           [0,1,2],
+           [3,4,5],
+           [6,7,8],
+           [0,4,8],
+           [2,4,6],
+           [0,3,6],
+           [1,4,7],
+           [2,5,8] 
+        ];
+        function ss(cc) {
+            if (gameOver || bbox[cc] !== '') return;
+            bbox[cc] = start;
+            cells[cc].textContent = start;
+            cells[cc].classList.add(start);
+            if (win(start)) {
+               document.getElementById('text').textContent =`${start}is Winner`;
+               text.style.color="green";
+               gameOver = true;
+            } else if (bbox.every(cell => cell !== '')) {
+                document.getElementById('text').textContent ="Game is draw";
+                text.style.color="blue";
+                gameOver = true;
+            } else {
+                start=start==='X'?'O':'X';
+            }
+        }
+        function win(player) {
+            return winningcriterias.some(combination => {
+                return combination.every(index => bbox[index] === player);
+            });
+        }
+    </script>
+</center>
+</body>
+</html>
